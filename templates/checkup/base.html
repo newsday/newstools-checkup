@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+{% block head %}
+    <head>
+    
+    <title>{% block title %}CheckUp{% endblock %}</title>
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    {% block styles %}
+    <link href="{% static "checkup/css/bootstrap.css" %}" rel="stylesheet" media="screen">
+    <link href="{% static "checkup/css/animate+animo.css" %}" rel="stylesheet" media="screen">
+    <link href="{% static "checkup/css/checkup.css" %}" rel="stylesheet" media="screen">
+    <link href="{% static "checkup/css/overviewmq.css" %}" rel="stylesheet" media="screen">
+    {% endblock styles %}
+    {% block fonts %}
+    <link href='http://fonts.googleapis.com/css?family=Roboto+Condensed:700,400,300' rel='stylesheet' type='text/css'>
+    {% endblock fonts %}
+    {% block share %}{% endblock share %}
+    
+    {% block page_load %}<script>function page_load() {}</script>{% endblock %}
+    <script>
+        var in_right, out_right, in_left, out_left;
+        in_right  = "bounceInRight";
+        in_left   = "bounceInLeft";
+        out_right = "fadeOutRightBig";
+        out_left  = "fadeOutLeftBig";
+    </script>
+    </head>
+{% endblock head %}
+        
+    <body>
+    {% block body_top %}{% endblock body_top %}
+    {% block content %}{% endblock content %}
+    <div class="footer">{% block footer %}{% endblock footer %}</div>
+    
+    {% block scripts %}<!-- JavaScript -->
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+    <script src="{% static "checkup/js/underscore-min.js" %}"></script>
+    <script src="{% static "checkup/js/animo.js" %}"></script>
+    <script src="{% static "checkup/js/jquery.history.js" %}"></script>
+    <script src="{% static "checkup/js/is.mobile.js" %}"></script>
+    <script src="{% static "checkup/js/respond.min.js" %}"></script> <!-- Enable responsive features in IE8 with Respond.js -->
+    {% endblock scripts %}{% block body_bottom %}{% endblock body_bottom %}
+    </body>
+</html>

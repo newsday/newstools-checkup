@@ -1,0 +1,271 @@
+{% extends base_template %}
+
+{% load static %}
+{% load humanize %}
+
+{% block title %}{{ assign.respondent }} - {{ assign.survey.name }} {% endblock %}
+
+{% block scripts %}{{ block.super }}
+
+	<script src="{% static "checkup/js/checkup.fancyload.js" %}"></script>
+	<script src="{% static "checkup/js/checkup.profile.js" %}"></script>
+	<script src="{% static "checkup/js/jquery.scrollTo-1.4.3.1-min.js" %}"></script>
+	<script src="{% static "checkup/js/jquery.localscroll-1.2.7-min.js" %}"></script>
+{% endblock scripts %}
+
+{% block content %}
+	<div class="container">
+	
+	<div class="row title">
+		<div class="col-sm-12">
+			<a class="title-link" href="{{ assign.survey.get_absolute_url }}">
+				<div class="titleCont profile">
+		          <img src="{% static "checkup/img/shield.png" %}">
+		          <h1>{{ assign.survey.name }}</h1><br class="visible-xs">
+				</div>
+			</a>
+		</div>
+		<div class="col-sm-push-1 col-sm-10">
+			<div class="row back-container back-container-top">
+				{% include "checkup/back-button.html" %}
+			</div>
+		</div>
+	</div>
+	
+	<div id="bodyContent" class="row">
+		{% include "checkup/prev-arrow-profile.html" %}
+		
+		<!-- page content -->
+		<div class="col-sm-10 col-xs-12">
+			<div class="row center-content center-content-init">
+				<div class="col-sm-12 col-xs-7 col-xs-push-5 col-sm-push-0">
+					<h2 class="profile-name">
+						{{ assign.respondent.full_name }}<div class="clearfix visible-xs"></div>
+						<small>
+							{{ assign.respondent.title.long }} {% if assign.respondent.district %}<br class="visible-xs">(<span class="party-indicator">{{assign.respondent.party}}-</span>{{assign.respondent.district}}){% else %}<span class="party-indicator">({{assign.respondent.get_party_display}})</span>{% endif %}
+						</small>
+					</h2>
+				</div>
+				<div class="col-sm-3 col-xs-5 col-xs-pull-7 col-sm-pull-0">
+					{% include "checkup/mugshot.html" %}
+				</div>
+				
+				<!-- iPhone controls -->
+				<div class="clearfix visible-xs"></div>
+		        <div class="visible-xs">
+		          {% spaceless %}
+		          <div class="tiny-controls-bar">
+		            {% if assign.get_prior_profile %}
+			            <a href="{{ assign.get_prior_profile.get_absolute_url }}" class="control control-tiny control-prev">
+			              <span class="glyphicon glyphicon-chevron-left"></span> POLIT
+			            </a>
+			        {% else %}
+				        <a href="{{ assign.survey.get_absolute_url }}" class="control control-tiny control-prev">
+			              <span class="glyphicon glyphicon-chevron-left"></span>QUESTIONS</a>
+			               &nbsp; &nbsp; | &nbsp; &nbsp; 
+			        {% endif %}
+		            {% if assign.get_next_profile.get_absolute_url %}
+			            <a href="{{ assign.get_next_profile.get_absolute_url }}" class="control control-tiny control-next">
+							{% if not assign.get_prior_profile %}POLIT{% endif %}ICIAN
+							<span class="glyphicon glyphicon-chevron-right"></span>
+			            </a>
+			        {% endif %}
+		            <div class="clearfix"></div>
+		          </div>
+		          {% endspaceless %}
+		        </div>
+				
+				<div class="col-sm-9 pull-right content">
+					<div class="row">
+						<div class="alert {% if assign.survey_complete %}alert-success{% else %}alert-danger{% endif %} col-xs-12">
+							{% spaceless %}
+								{% include assign.tmpl %}
+								{% if assign.respondent.twitter %}<p>{% include "checkup/tweetme.html" %}</p>{% endif %}
+							{% endspaceless %}
+					  	<div class="clearfix"></div>
+						</div>
+						
+						{% if assign.display_chatter or job_desc %}
+						<div class="copyblock  col-xs-12">
+							<h3>Background:</h3>
+							<p>
+								{% if job_desc %}<p>{% include job_desc %}</p>{% endif %}
+								{% if assign.display_chatter %}<p>{{ assign.display_chatter|safe }}</p>{% endif %}
+							</p>
+						</div>
+						{% endif %}
+						
+						<div class="copyblock col-xs-12">
+							<h3>Questions:</h3>
+							<div class="row question-block">	
+								{% if assign.survey_complete %}
+									{% for qa in assign.answers.all %}
+										<div class="qa">
+											<div class="col-xs-12">
+												<h4><small>{{ qa.question.question.explanation }}</small></h4>
+											</div>
+											<div class="question col-sm-7">
+												<h4>{{ qa.question.question.question }}</h4>
+											</div>
+											
+											<div class="answer col-sm-5">
+												<a class="jumpBtn {{ qa.answer.choice|slugify }}"><span><img src="{% static "checkup/img/" %}{{qa.answer.choice|slugify}}.png"></span><em></em>{{qa.answer.choice}}</a>
+											</div>
+											<div class="clearfix"></div>
+										</div>
+									{% endfor %}
+								{% else %}
+									{% for q in assign.questions.questions.all %}
+										<div class="qa">
+											<div class="col-xs-12">
+												<h4><small>{{ q.explanation }}</small></h4>
+											</div>
+											<div class="question col-sm-7 col-md-8">
+												<h4>{{ q }}</h4>
+											</div>
+											
+											<div class="answer col-sm-5 col-md-4">
+												<a class="jumpBtn no-response"><span><img src="{% static "checkup/img/no-response.png" %}"></span><em></em>No response</a>
+											</div>
+											<div class="clearfix"></div>
+										</div>
+									{% endfor %}
+								{% endif %}
+							
+								<div class="col-xs-12">
+									<h3>{% if assign.respondent.gender == "M" %}His{% else %}Her{% endif %} comments:</h3>
+									{% if assign.comment.comment %}
+										<blockquote>
+											{{ assign.comment.comment|linebreaks }}
+										</blockquote>
+									{% else %}
+										{% if assign.survey_complete %}
+											<blockquote><em>{{ assign.respondent.last_name }} did not provide any comments.</em></blockquote>
+										{% else %}
+											<blockquote><em class="lead">{{ assign.respondent.last_name }} has not filled in Newsday's survey.</em></blockquote>
+										{% endif %}
+									{% endif %}
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-3 pull-left sidebar">
+					<div class="panel panel-default hidden-xs">
+						<div class="panel-heading">
+							<h5 class="panel-title">{{ assign.respondent.get_party_display }}</h5>
+						</div>
+					</div>
+					
+					{% for contrib in assign.contribs %}{% with lbl=contrib.0 %}
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<div class="pull-right"><img src="{% static "checkup/img/dollar.svg" %}"></div>
+							<h5 class="panel-title">{{ lbl.label|safe }}</h5>
+						</div>
+						<div class="list-group-item text-center">
+							{% spaceless %}{% if contrib.1 %}{% with c=contrib.1 %}
+							<h3>${{ c.amount|floatformat|intcomma }}</h3>
+							<em>
+							 	{{ c.contrib_count|apnumber|capfirst }} contributions, <br>
+							 	{{ c.years }}
+							 </em>
+							 {% endwith %}{% else %}
+							 <h3>None</h3>
+							 {% endif %}{% endspaceless %}
+						</div>
+						<div class="panel-footer text-right">
+							<em>{{ lbl.contrib_desc|safe }}</em>
+							{% if lbl.contrib_footnote %}<small>
+								{{ lbl.contrib_footnote|safe }}
+							</small>{% endif %}
+						</div>
+					</div>
+					{% endwith %}{% endfor %}
+					
+					<div class="panel panel-info">
+						<div class="panel-heading">
+							<div class="pull-right"><img src="{% static "checkup/img/contact.svg" %}"></div>
+							<h5 class="panel-title">Contact</h5>
+						</div>
+						
+						<div class="list-group">
+							{% if assign.respondent.website %}
+							<a class="list-group-item" href="{{ assign.respondent.website }}" target="_blank">
+								<div class="pull-right"><img src="{% static "checkup/img/link.svg" %}"></div>
+								Website
+							</a>
+							{% endif %}
+							
+							{% if assign.respondent.email %}
+							<a class="list-group-item" href="mailto:{{ assign.respondent.email }}">
+								<div class="pull-right"><img src="{% static "checkup/img/email.svg" %}"></div>
+								Email
+							</a>
+							{% endif %}
+							
+							{% if assign.respondent.twitter %}
+							<a class="list-group-item" href="http://www.twitter.com/{{ assign.respondent.twitter }}" target="_blank">
+								<div class="pull-right"><img src="{% static "checkup/img/twitter.svg" %}"></div>
+								@{{ assign.respondent.twitter }}
+							</a>
+							{% endif %}
+							
+							{% if assign.respondent.office_phone %}
+							<div class="list-group-item">
+								<div class="pull-right"><img src="{% static "checkup/img/phone.svg" %}"></div>
+								<small>
+									{{ assign.respondent.office_phone  }}
+								</small>
+							</div>
+							{% endif %}
+							
+							{% if assign.respondent.address %}
+							<div class="list-group-item">
+								<div class="pull-right"><img src="{% static "checkup/img/office.svg" %}"></div>
+								<small>
+									{{ assign.respondent.address }} <br>
+									{% if assign.respondent.address2 %}{{ assign.respondent.address2 }} <br>{% endif %}
+									{{ assign.respondent.city }}, {{ assign.respondent.state }} {{ assign.respondent.zip }}
+								</small>
+							</div>
+							{% endif %}
+							
+						</div>
+					</div>
+				</div>
+				
+				<div class="col-xs-12 col-sm-9 pull-right">
+					<a name="comment-box"></a>
+					<div class="panel panel-default">
+						<div class="panel-heading">
+							<h3 class="panel-title">
+								<img width="35" height="35" src="{% static "checkup/img/comment.svg" %}">
+								{% if assign.survey.complete %}
+									Do you agree?
+								{% else %}
+									What do you think?
+								{% endif %}
+							</h3>
+						</div>
+						<div class="comments">
+							{% include "newsday/comments.html" %}
+						</div>
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			
+				<div class="col-sm-12">
+					<div class="row back-container back-container-bottom">
+						{% include "checkup/back-button.html" %}
+					</div>
+				</div>
+				<div class="clearfix"></div>
+			</div> <!-- /center-content -->
+		</div> <!-- /page content -->
+		{% if assign.get_next_profile %}{% include "checkup/next-arrow-profile.html" %}{% endif %}
+	</div> <!-- /bodyContent -->
+	
+	</div> <!-- /container -->
+{% endblock content %}

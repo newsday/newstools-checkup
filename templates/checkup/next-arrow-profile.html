@@ -1,0 +1,6 @@
+{% extends "checkup/next-arrow.html" %}
+
+{% block label %}<small>Next</small> <br> Politician{% endblock %}
+
+{% block href %}{{ assign.get_next_profile.get_absolute_url }}{% endblock %}
+

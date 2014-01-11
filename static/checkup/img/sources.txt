@@ -1,0 +1,29 @@
+office.svg: http://thenounproject.com/noun/government-office/#icon-No4393
+
+phone.svg: http://thenounproject.com/noun/telephone/#icon-No9652
+
+email.svg: http://thenounproject.com/noun/email/#icon-No4424
+
+twitter.svg: http://thenounproject.com/noun/twitter/#icon-No20940
+
+link.svg: http://thenounproject.com/noun/link/#icon-No18141
+
+comment.svg: http://thenounproject.com/noun/comment/#icon-No5483
+
+dollar.svg: http://thenounproject.com/noun/dollar/#icon-No9686
+
+contact.svg: http://thenounproject.com/noun/contact/#icon-No8289
+
+approve.svg: http://thenounproject.com/noun/approve/#icon-No8713
+
+disapprove.svg: http://thenounproject.com/noun/disapprove/#icon-No9108
+
+unknown.svg: http://thenounproject.com/noun/question/#icon-No8251
+
+arrow.svg: http://thenounproject.com/term/arrow/8603/
+
+commented.svg: http://thenounproject.com/term/comment/5483/
+
+# unused but might be useful
+politics.svg: http://thenounproject.com/noun/voter-suppression/#icon-No15225
+

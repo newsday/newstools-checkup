@@ -1,0 +1,11 @@
+<!-- prev arrow -->{% spaceless %}
+    <div class="col-sm-1 hidden-xs">
+        <a href="{% block href %}#{% endblock %}" class="control control-big control-prev">
+          <div class="row">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+            <div class="control-label col-xs-12">{% block label %}Previous<br>Question{% endblock %}</div>
+          </div>
+        </a>
+        <div class="clearfix"></div>
+        {% block after %}{% endblock %}
+    </div>{% endspaceless %}<!-- /prev -->

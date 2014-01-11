@@ -1,0 +1,17 @@
+{% extends "checkup/prev-arrow.html" %}
+
+{% block label %}{% spaceless %}
+    {% if assign.get_prior_profile %}
+        <small>Previous</small> <br>Politician
+    {% else %}
+        <small>Back to the</small> <br>Questions
+    {% endif %}
+{% endspaceless %}{% endblock label %}
+
+{% block href %}{% spaceless %}
+    {% if assign.get_prior_profile %}
+        {{ assign.get_prior_profile.get_absolute_url }}
+    {% else %}
+        {{ assign.survey.get_absolute_url }}
+    {% endif %}
+{% endspaceless %}{% endblock href %}

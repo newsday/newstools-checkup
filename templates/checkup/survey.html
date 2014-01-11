@@ -1,0 +1,118 @@
+{% extends base_template %}
+
+{% load static %}
+
+{% block title %}{{ survey.name }}{% endblock %}
+
+{% block scripts %}{{ block.super }}
+
+    <script src="{% static "checkup/js/jquery.isotope.min.js" %}"></script>
+    <script src="{% static "checkup/js/waypoints.min.js" %}"></script>
+    
+    <script src="{% static "checkup/js/jquery.checkup.js" %}"></script>
+    <script src="{% static "checkup/js/checkup.survey.js" %}"></script>
+
+    <script type="text/template" id="bin_template">
+      <div id="<%= key %>-wrapper" class="bin-wrapper col-sm-4">
+        <div class="title-wrapper">
+          <div class="title">
+            <h4>
+              <%= label %>
+              <div class="miniviz"></div>
+              <div class="miniviz-ct">0</div>
+            </h4>
+          </div>
+        </div>
+        <div id="<%= key %>-bin" class="bin"></div>
+      </div>
+    </script>
+
+    <script type="text/template" id="box_template">
+      <a id="<%= key %>" href="<%= url %>" data-id="<%= id %>" class="item <%= respondent__party %>">
+        <img class="img-responsive" src="<%= respondent__headshot %>">
+        <div class="name caption">
+          <span class="respondent-party <% print(respondent__party.charAt(0)) %>">(<% print(respondent__party.charAt(0)) %>)</span>
+          <small class="last_name"><%= respondent__last_name %></small> <br>
+          <span class="respondent-title"><%= respondent__title__short %></span>
+          <% if(comment_left) print('<span class="respondent-commented"><img src="{% static "checkup/img/commented.svg" %}"></span>') %>
+        </div>
+        
+      </a>
+    </script>
+{% endblock scripts %}
+
+{% block styles %}{{ block.super }}
+
+    <link href="{% static "checkup/css/isotope.css" %}" rel="stylesheet" media="screen">
+{% endblock styles %}
+
+{% block content %}
+    <div id="survey" class="container">
+    
+    <div class="row intro">
+      <div class="col-sm-12">
+          <div class="titleCont">
+          <img src="{% static "checkup/img/shield.png" %}">
+          <h1>{{ survey.name }}</h1>
+          </div>
+          
+          {% include "checkup/byline.html" %}
+                    
+          <div class="row">
+            <div class="chatter col-md-10 col-md-push-1">
+              {{ survey.display_chatter|safe|linebreaks }}
+            </div>
+          </div>
+          
+          <!--[if lte IE 8]>
+            <div class="alert alert-danger">
+              <p>You're using an older web browser that doesn't work well with this page. <a class="alert-link" href="{{ survey.first_assignment.get_absolute_url }}">Click here</a> to go to a page where you can browse through individual responses answers. Or open this page in <a class="alert-link" href="http://www.google.com/intl/en/chrome/browser/">Chrome</a> or <a class="alert-link" href="http://www.mozilla.org/en-US/firefox/new/">Firefox</a> for the best experience. </p>
+            </div>
+          <![endif]-->
+      </div>
+    </div>
+    
+    <div id="checkup" class="row center-content">
+      
+    {% include "checkup/prev-arrow.html" %}
+      
+    <div class="col-sm-10">
+    <div class="row question-container">
+      <div class="col-sm-10 col-sm-offset-1">
+        <h4 class="question-leadin"><small class="directed_to"></small><span class="explanation"></span></h4>
+      </div>
+      <div class="clearfix"></div>
+
+      <div class="question-wrapper col-xs-12">
+        <div class="question-title">
+          <h2 class="question text-center"></h2>
+          <!-- iPhone controls -->
+          <div class="visible-xs">
+            <div class="tiny-controls-bar">
+              <a href="#" class="control control-tiny control-prev">
+                <span class="glyphicon glyphicon-chevron-left"></span>
+              </a>
+              <span class="control-tiny-text">NEXT QUESTION</span>
+              <a href="#" class="control control-tiny control-next">
+                <span class="glyphicon glyphicon-chevron-right"></span>
+              </a>
+              <div class="clearfix"></div>
+            </div>
+          </div>
+        </div>
+        <div class="clearfix"></div>
+      </div> <!-- /question-wrapper -->
+    </div> <!-- /row /question-container -->
+    <div class="clearfix"></div>
+    </div> <!-- /col-sm-10 -->
+      
+    {% include "checkup/next-arrow.html" %}
+    
+    <div id="bin-holder" class="col-sm-push-1 col-sm-10"></div>
+    
+    <div class="clearfix"></div>
+    
+    </div> <!-- /#checkup -->
+    
+    </div> <!-- /#survey -->
+{% endblock content %}

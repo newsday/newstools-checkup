@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html lang="en">
+	<head>
+		<title>{% block title %}Thank you!{% endblock %}</title>
+		<link rel="icon" href="http://www.newsday.com/img/newsday/favicon.ico" /> 
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<link href="{% static "checkup/css/bootstrap.css" %}" rel="stylesheet" media="screen">
+		
+		<link href="http://data.newsday.com/_common/css/bootheader.css" rel="stylesheet">
+		<link href="http://data.newsday.com/_common/css/simple-share.css" rel="stylesheet">  
+		
+		<!-- Fonts -->		
+		<link href='http://fonts.googleapis.com/css?family=Roboto:400,900,700' rel='stylesheet' type='text/css'>
+		
+		<!-- JavaScript plugins (requires jQuery) -->
+		<script src="http://code.jquery.com/jquery.js"></script>
+		<!-- Include all compiled plugins (below), or include individual files as needed -->
+		<script src="{% static "checkup/js/bootstrap.js" %}"></script>
+		
+		<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+		<script src="{% static "checkup/js/respond.src.js" %}"></script>
+		
+		{% block head_style %}
+		<link href="{% static "checkup/css/checkup.css" %}" rel="stylesheet" media="screen">
+		{% endblock head_style %}
+		
+		<script>
+			window.isMobile = {
+			    Android: function() { return navigator.userAgent.match(/Android/i); },
+			    BlackBerry: function() { return navigator.userAgent.match(/BlackBerry/i); },
+			    iOS: function() { return navigator.userAgent.match(/iPhone|iPad|iPod/i); },
+			    Opera: function() { return navigator.userAgent.match(/Opera Mini/i); },
+			    Windows: function() { return navigator.userAgent.match(/IEMobile/i); },
+			    any: function() {
+			        return (isMobile.Android() || isMobile.BlackBerry() || isMobile.iOS() || isMobile.Opera() || isMobile.Windows());
+			    }
+			};
+		</script>
+		
+		{% block head_scripts %}
+		<script src="{% static "checkup/js/underscore-min.js" %}"></script>
+		<script src="{% static "checkup/js/jquery.touchSwipe.min.js" %}"></script>
+		<script src="{% static "checkup/js/checkup.fancyload.js" %}"></script>
+		{% endblock head_scripts %}
+	</head>
+	<body>
+		<a href="http://www.newsday.com" name="name" id="logo"><img src="http://data.newsday.com/_common/images/newsday-slim-logo.png"></a>
+		<div id="header" class="fadeIt">
+		</div>
+		{% block content %}
+		<div class="container">
+			<h2>Thank you!</h2>
+			<p>We appreciate your participation in the survey.</p>
+			<p>If you have any questions or concerns or would like to change your responses, please contact {{ assignment.reporter.title.short|lower }} {{ assignment.reporter.user.first_name }} {{ assignment.reporter.user.last_name }} at {{ assignment.reporter.phone }} or by email at <a href="mailto:{{ assignment.reporter.user.email }}">{{ assignment.reporter.user.email }}</a>.</p>
+		</div>
+		{% endblock content %}
+	</body>
+</html>

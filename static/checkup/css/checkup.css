@@ -1,0 +1,346 @@
+/* 
+    Document   : checkup.css
+    Author     : aplayford and mclark
+    Description: Checkup
+*/
+
+/***************
+ * Base styles *
+ ***************/
+ 
+body {
+    padding-top: 48px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Roboto Condensed',sans-serif;
+    font-weight: 900;
+}
+.comments {
+    margin: 10px 20px;
+}
+
+.footer {
+  width: 100%; color: #999;
+  text-align: center;
+  margin-top: 50px; padding: 100px 0;
+  position: relative;
+}
+
+#header, #header *, #header *:before, #header *:after {
+  -webkit-box-sizing: content-box;
+  -moz-box-sizing: content-box;
+  box-sizing: content-box;
+}
+
+/*********
+ * Survey form *
+ *********/
+#container-basic {
+    max-width: 910px;
+}
+
+.toggle {
+    cursor: pointer;
+}
+.accordion-delete {
+    display: inline-block;
+    margin: 4px 15px;
+}
+
+
+/**************
+ * Survey viz *
+ **************/
+#survey h1, .titleCont h1 {color: #000000;font-size: 71px;line-height: 0.9em;margin-bottom: 50px;width: 92%;}
+.titleCont img {float:left;padding: 0 30px 0 90px;}
+h4, .h4 {font-size: 30px;color:#000;}
+.byline {text-align:center;margin:0 0 30px;}
+.in {display:block!important;}
+
+.title-link:hover {
+  text-decoration: none;
+}
+
+#survey .intro { margin-bottom: 20px; }
+
+
+#survey .intro .chatter {
+   font-size: 18px;
+   text-align: center;
+}
+
+.item {
+  width: 88px; height: 150px;
+  margin: 3px; margin-top: 10px; color: #000;
+  display: block;
+}
+.item img { height: 105px; }
+
+.respondent-commented { opacity: 0.2; position: absolute; bottom: 20px; right: 0px; }
+.respondent-commented img { width: 25px; height: 25px; }
+
+
+/* bootstrap: md */
+/*@media (min-width: 992px) { 
+  .item { width: 88px; }
+  .item img { height: 106px; }
+}*/
+
+.item:hover, .item:hover img, .item:hover .caption, .item:hover .respondent-title {
+  opacity: 0.5;
+  text-decoration: none;
+  color: black;
+}
+
+.item .name {
+  line-height: 12px;
+  margin-top: 5px;
+}
+.item .name .respondent-title {
+  font-size: 10px;
+}
+
+.item .name .respondent-party {
+  font-weight: bold;
+  color: #999;
+  position: absolute; top: 0; right: 0;
+  background-color: white;
+  padding-left: 3px; padding-bottom: 3px;
+  border-bottom-left-radius: 8px;
+  font-size: 10px; opacity: 0.8;
+}
+.item .name .respondent-party.D {
+  color: rgba(100, 100, 255, 0.6);
+}
+.item .name .respondent-party.R {
+  color: rgba(255, 100, 100, 0.6);
+}
+
+.bin { min-height: 200px; padding-top: 15px; }
+
+.bin-wrapper .title-wrapper { height: 60px; }
+
+.bin-wrapper .title {
+  margin: 0;
+  padding: 0px 0 0 0;
+  line-height: 25px;
+  border-bottom: 1px solid #ccc;
+  background-color: white;
+  z-index: 102;
+}
+
+.bin-wrapper .title.stuck {
+  position: fixed;
+  top: 121px;
+  background-color: white;
+}
+
+.bin-wrapper .title h4 {
+  position: relative; margin: 0;
+  background-color: white; z-index: 110;
+}
+
+.bin-wrapper .title .miniviz {
+  position: absolute;
+  max-width: 52px; /* 5 boxes per row */
+  bottom: 5px; right: 35px;
+  line-height: 2px;
+  
+  transform:rotate(180deg);
+  -ms-transform:rotate(180deg); /* IE 9 */
+  -webkit-transform:rotate(180deg); 
+}
+
+.bin-wrapper .stuck .miniviz {
+  z-index: 250;
+}
+
+.bin-wrapper .title .miniviz-ct {
+  position: absolute; bottom: 5px; right: 0px; color: #888;
+}
+
+.bin-wrapper .title .miniviz .dot {
+  display: inline-block; z-index: 400;
+  width: 4px; height: 4px;
+  margin-left: 1px; margin-bottom: 1px;
+  background-color: rgba(50,50,50,0.2);
+}
+
+
+.question-title .question {
+  font-family: 'Roboto Condensed',sans-serif;
+  font-weight: 600;
+  margin: 0 0; padding-top: 20px; padding-bottom: 35px;
+  position: relative;
+  color:#000; font-size: 40px; background-color: #fff;
+}
+
+h4.question-leadin { font-size: 23px; margin: 0 auto; text-align: center; }
+h4.question-leadin small { display: block; }
+
+.question-title.stuck { position: fixed; background-color: white; z-index: 100; }
+
+
+/******************
+ * Survey profile *
+ ******************/
+ 
+.sidebar img {
+  height: 20px; width: 20px; margin-left: 10px;
+}
+
+
+.copyblock {
+  margin-bottom: 40px;
+}
+
+.content .alert {
+  text-align: justify;
+}
+.content .alert h4 {
+  text-align: left;
+}
+
+.alert .tweet-me {
+  float: right;
+}
+
+.profile-name { line-height: 26px; }
+
+.party-indicator { display: none; }
+
+/* Style the back-to-survey button */
+.back-button {
+    display: inline-block; font-size: 26px;
+    white-space: nowrap; color: #AAA;
+}
+.back-button:hover {
+  text-decoration: none; opacity: 0.5;
+}
+.back-button .icon {
+  display: inline-block;  vertical-align: middle;
+}
+.back-button .text {
+  font-family: 'Roboto Condensed', sans-serif; font-weight: 900;
+  display: inline-block;  vertical-align: middle; white-space: normal;
+}
+
+.back-container { text-align: center; }
+.back-container-top { margin-top: -30px; }
+.back-container-bottom { margin-top: 30px; }
+
+.center-content-init {
+  display: none;
+}
+
+.qa {
+  border-bottom: 1px solid #aaa;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+@media (min-width: 767px) {
+  .qa .answer { position: absolute; bottom: 0px; right: 0px; }
+}
+
+.qa .question {
+  min-height: 80px;
+}
+
+.panel-footer {
+  line-height: 13px;
+}
+
+/**********
+ * Common *
+ **********/
+ 
+.control {
+  z-index: 800;
+}
+ 
+.control:hover, .control:focus, .control:active, .control.active {
+  text-decoration: none; outline: 0;
+}
+.control-big:hover, .control.active {
+  opacity: 0.2;
+}
+ 
+.control-big {
+  position: fixed; top: 67%; max-width: 66px;
+  font-size: 50px; opacity: 0.4;
+  text-align: center;
+}
+.control-big:active, .control-big:focus { opacity: 0.4; }
+
+.control-label {
+  font-family: 'Roboto Condensed',sans-serif;
+  font-size: 16px; font-weight: 900;
+  color: #428bca; width: 100%; display: block;
+  margin-top: -15px; text-align: center; line-height: 22px;
+}
+.control-label small {
+  line-height: 18px;
+}
+
+#survey .control-prev {
+  display: none; /* first page doesn't have a back button */
+}
+
+.control-ff { position: fixed; bottom: 15px; opacity: 0.4; text-align: center; font-size: 18px; line-height: 60px; max-width: 66px; }
+.control-ff:hover { opacity: 0.2; }
+.control-ff .control-label { font-size: 12px; line-height: 12px; }
+.control-ff .glyphicon { font-size: 25px; }
+
+.control-big.control-next, .control-ff-next { right: 5px; }
+.control-big.control-prev, .control-ff-prev { left: 5px; }
+
+
+@media (min-width: 992px) { /* bootstrap: md */
+  .control-big.control-next, .control-ff-next { right: 2%; }
+  .control-big.control-prev, .control-ff-prev { left: 2%; }
+  
+  .control-big { font-size: 60px; max-width: 81px; }
+  .control-label { font-size: 17px; }
+  .control-ff { max-width: 81px; font-size: 22px; }
+  .control-ff .control-label { font-size: 14px; line-height: 14px; }
+}
+
+@media (min-width: 1200px) { /* bootstrap: lg */;
+  .control-big { font-size: 100px; max-width: 89px; }
+  .control-label { font-size: 20px; }
+  .control-ff { font-size: 25px; }
+  /*.control-ff .control-label { font-size: 14px; line-height: 14px; }*/
+}
+
+.tiny-controls-bar {
+  font-family: 'Roboto Condensed',sans-serif; font-size: 20px; font-weight: 900;
+  width: 100%; margin: 20px 0;
+  text-align: center;
+  color: #428bca;
+}
+.tiny-controls-bar a:hover { color: #428bca; }
+
+.control-tiny.control-prev { margin-right: -4px; }
+
+
+.jumpBtn {border-radius: 4px;color: #FFFFFF;display: block;font-family: 'Roboto Condensed',sans-serif;font-size: 20px;height: 76px;line-height: 1em;margin: 0 0 10px;padding: 30px 40px 0 89px;position: relative;}
+.jumpBtn span {border-radius: 4px 0 0 4px; float: left; height: 76px; left: 0; position: absolute; top: 0; width: 72px; }
+.jumpBtn img { border: 0 none; margin: 18px 0 0 16px; }
+.jumpBtn em {display: block; height: 27px; left: 70px; position: absolute; top: 26px; width: 13px; }
+.jumpBtn:hover {text-decoration:none;}
+.jumpBtn.yes {background:#DFF0D8; color:#468847;}
+.jumpBtn.no {background:#F2DEDE; color:#B94A48;}
+.jumpBtn.no img {margin:25px 0 0 16px;}
+.jumpBtn.no-response, .jumpBtn.no-comment {background:#EEEEEE;color:#666666;}
+.jumpBtn.yes span {background:#468847;}
+.jumpBtn.no span {background:#B94A48;}
+.jumpBtn.no-response span, .jumpBtn.no-comment span {background:#666666;}
+.jumpBtn.yes em {background: url("../../checkup/img/greenarrow.png") repeat scroll 0 0 rgba(0, 0, 0, 0);}
+.jumpBtn.no em {background: url("../../checkup/img/redarrow.png") repeat scroll 0 0 rgba(0, 0, 0, 0);}
+.jumpBtn.no-response em, .jumpBtn.no-comment em {background: url("../../checkup/img/greyarrow.png") repeat scroll 0 0 rgba(0, 0, 0, 0);}
+/*.jumpBtn.yes:hover {background:#CBDDC3;}
+.jumpBtn.no:hover {background:#E2CCCC;}
+.jumpBtn.no-response:hover, .jumpBtn.no-comment:hover {background:#DDDBDB;}*/
+.jumpBtn.img {margin: 22px 0 0 17px;}

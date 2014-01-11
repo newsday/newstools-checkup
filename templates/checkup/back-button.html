@@ -1,0 +1,9 @@
+<!-- back button -->{% spaceless %}
+    <a class="back-button" href="{{ assign.survey.get_absolute_url }}">
+        <div class="icon">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+        </div>
+        <div class="text">{% block button-text %}See other politicians' answers{% endblock %}</div>
+    </a>
+    <div class="clearfix"></div>
+{% endspaceless %}<!-- /back -->

@@ -1,0 +1,46 @@
+/* 
+    Document   : overviewmq
+    Created on : Dec 10, 2013, 11:31:29 AM
+    Author     : rgriffo
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* iPad Landscape */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px)  { 
+#survey h1, .titleCont h1 {color: #000000;font-size: 71px;line-height: 0.9em;margin-bottom: 50px;width: 100%; padding:10px 0 0 0;}
+.title h4 {font-size:24px;}
+.titleCont img {float:left;padding: 0 30px 0 0;}
+.titleCont.profile h1 {font-size:60px; width:100%;}
+.titleCont.profile img {float:left;padding-left:80px;}
+.control {top:80%;}
+.question-leadin {width: 106%;}
+}
+
+/* iPad Portrait */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+#survey h1, .titleCont h1 { color: #000000; font-size: 71px; line-height: 0.9em; margin-bottom: 50px; padding: 8px 0 0; width: 92%; }
+}
+
+/* iPhone */
+@media only screen and (min-width : 320px) and (max-width : 568px) { 
+#survey h1, .titleCont h1 {color: #000000;font-size: 27px;line-height: 0.9em;margin-bottom: 20px;width: 100%; margin-left:10px; padding:0 0 0 60px;}
+.title h4 {font-size:24px;}
+.titleCont img {float:left;padding: 0; width:58px; height:73px;}
+.titleCont.profile h1 {font-size: 27px; width:100%; padding:20px 0 0 70px; margin:0;}
+.titleCont.profile img {float:left;padding: 0; width:58px; height:73px; margin:20px 0 0 0;}
+/*.col-md-11 {margin:0 0 20px 0; width:100%!important;}*/
+/*.col-md-11 p {width:100%;}*/
+/*.back-button {margin:20px 0 20px 0;}*/
+.back-container { margin: 0; }
+.control {display:none;}
+.question-leadin {font-size:20px; width:90%;}
+.question-title .question {font-size:26px;}
+body #header {margin:0;}
+}
+
+
+
+
+
+
