@@ -36,12 +36,22 @@
     <div class="footer">{% block footer %}{% endblock footer %}</div>
     
     {% block scripts %}<!-- JavaScript -->
+    <script src="{% static "checkup/js/modernizr.custom.js" %}"></script>
     <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="{% static "checkup/js/underscore-min.js" %}"></script>
-    <script src="{% static "checkup/js/animo.js" %}"></script>
-    <script src="{% static "checkup/js/jquery.history.js" %}"></script>
-    <script src="{% static "checkup/js/is.mobile.js" %}"></script>
-    <script src="{% static "checkup/js/respond.min.js" %}"></script> <!-- Enable responsive features in IE8 with Respond.js -->
+    
+    <script>
+        yepnope({% block preload %}{% endblock %}[[
+            '{% static "checkup/js/jquery.history.js" %}',
+            '{% static "checkup/js/is.mobile.js" %}',
+            'ielt9!{% static "checkup/js/respond.min.js" %}'
+        ], {
+          test: Modernizr.csstransforms3d,
+          yep : '{% static "checkup/js/animo.js" %}',
+          nope: '{% static "checkup/js/animo-shim.js" %}'
+        }{% block postload %}{% endblock %}]);
+    </script>
+    
     {% endblock scripts %}{% block body_bottom %}{% endblock body_bottom %}
     </body>
 </html>

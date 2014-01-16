@@ -89,11 +89,12 @@ custom_sizes = function() {
     
     // console.log(" starting question resize");
     
+    $question.css('width', $question_box.width());
     qheight = $question.outerHeight(true);
     $question_box.stop().animate({
       'height': qheight
     }, 200, question_resized);
-    $question.css('width', $question_box.width());
+    
     
     if(!window.isMobile.any() && $(window).width() > 768) {
       // question_trigger_height = $("#header").outerHeight(true) || 0;

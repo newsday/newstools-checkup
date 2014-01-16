@@ -4,14 +4,15 @@
 
 {% block title %}{{ survey.name }}{% endblock %}
 
-{% block scripts %}{{ block.super }}
+{% block postload %}, [
+            '{% static "checkup/js/jquery.isotope.min.js" %}',
+            '{% static "checkup/js/waypoints.min.js" %}',
+            '{% static "checkup/js/jquery.checkup.js" %}',
+            '{% static "checkup/js/checkup.survey.js" %}'
+        ]{% endblock postload %}
 
-    <script src="{% static "checkup/js/jquery.isotope.min.js" %}"></script>
-    <script src="{% static "checkup/js/waypoints.min.js" %}"></script>
-    
-    <script src="{% static "checkup/js/jquery.checkup.js" %}"></script>
-    <script src="{% static "checkup/js/checkup.survey.js" %}"></script>
 
+{% block body_bottom %}
     <script type="text/template" id="bin_template">
       <div id="<%= key %>-wrapper" class="bin-wrapper col-sm-4">
         <div class="title-wrapper">
@@ -39,7 +40,7 @@
         
       </a>
     </script>
-{% endblock scripts %}
+{% endblock body_bottom %}
 
 {% block styles %}{{ block.super }}
 

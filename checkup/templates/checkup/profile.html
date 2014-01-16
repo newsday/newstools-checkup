@@ -5,13 +5,14 @@
 
 {% block title %}{{ assign.respondent }} - {{ assign.survey.name }} {% endblock %}
 
-{% block scripts %}{{ block.super }}
-
-	<script src="{% static "checkup/js/checkup.fancyload.js" %}"></script>
-	<script src="{% static "checkup/js/checkup.profile.js" %}"></script>
-	<script src="{% static "checkup/js/jquery.scrollTo-1.4.3.1-min.js" %}"></script>
-	<script src="{% static "checkup/js/jquery.localscroll-1.2.7-min.js" %}"></script>
-{% endblock scripts %}
+{% block postload %}, {
+          test: Modernizr.csstransforms3d && Modernizr.history,
+          yep : '{% static "checkup/js/checkup.fancyload.js" %}'
+        }, [
+            '{% static "checkup/js/jquery.scrollTo-1.4.3.1-min.js" %}',
+            '{% static "checkup/js/jquery.localscroll-1.2.7-min.js" %}',
+            '{% static "checkup/js/checkup.profile.js" %}'
+        ]{% endblock postload %}
 
 {% block content %}
 	<div class="container">

@@ -1,25 +1,83 @@
 $(document).ready(function() {
-    // var $prev_ctl, $next_ctl, $body;
+    var $content = $(".center-content");
     
-    // $prev_ctl = $('#control-prev');
-    // $next_ctl = $('#control-next');
+    $center = $(".center-content");
+    $center.removeClass("center-content-init");
+    $center.animo({ animation: in_right, duration: 0.4 });
     
-    // PUT ALL THE STUFF THAT SHOULDN'T LOAD IN IE9 IN HERE
+    animate = {
+        backward: { in: in_left, out: out_right },
+        forward: { in: in_right, out: out_left }
+    };
+    reverse = { backward: 'forward', forward: 'backward' };
     
-    $centerContent = $(".center-content");
-    $centerContent.removeClass("center-content-init");
-    $centerContent.animo({ animation: in_right, duration: 0.4 });
+    function make_buttons() {
+        var $btn = $(this);
+        
+        if(!$btn.hasClass("control-next")) { dir = "backward"; } else { dir = "forward"; }
+        
+        url = $btn.attr("href");
+        
+        if(_(["Back to theQuestions", "QUESTIONS"]).contains($btn.find(".control-label").text())) {
+            $("html, body").animate({ scrollTop: 0}, 150, function() {
+                $content.animo({ animation: animate[dir].out, duration: 0.3, keep: true }, function() {
+                    window.location.href = url; // + "#last";
+                });
+            });
+        } else {
+            History.pushState({ dir:  dir}, null, url);
+        }
+        return false;
+    }
     
-    // if(isMobile.any()) {
-    //     $("#bodyContent").swipe({
-    //         swipeLeft: function(event, direction, distance, duration, fingerCount) {
-    //             $next_ctl.addClass("active");
-    //             $next_ctl.click();
-    //         },
-    //         swipeRight: function(event, direction, distance, duration, fingerCount) {
-    //             $prev_ctl.addClass("active");
-    //             $prev_ctl.click();
-    //         }
-    //     });
-    // }
+    $(".control").click(make_buttons);
+    
+    // // Bind to StateChange Event
+    History.Adapter.bind(window,'statechange',function() {
+        var state = History.getState();
+        leak = state;
+        
+        // after a new page is loaded
+        function render_page(responseText, textStatus, XMLHttpRequest) {
+            $content = $(".center-content");
+            
+            // Display $content
+            $content.animo({ animation: animate[state.data.dir].in, duration: 0.6, keep: true });
+            $content.removeClass("center-content-init");
+            
+            // Re-set button press events
+            $(".control").click(make_buttons);
+            
+            // Re-render Twitter buttons
+            $.ajax({ url: 'http://platform.twitter.com/widgets.js', dataType: 'script', cache:true});
+            
+            // Extract metadata from new page
+            $newpg = $(responseText);
+            title = $newpg.filter("title").text();
+            
+            // Update metadata
+            $("meta").remove();
+            $("head").append($newpg.filter("meta"));
+            document.title = title;
+            
+            $('#header,.alert').localScroll({ 'offset': -48 });
+            
+            // Site-specific hook
+            page_load();
+            
+            // state.data.dir = reverse[state.data.dir];
+            // this doesn't work, but we need something like it.
+        }
+        
+        // function change_page(url) {
+            $("html, body").animate({ scrollTop: 0}, 150, function() {
+                // pull to top of page
+                console.log(state);
+                $content.animo({ animation: animate[state.data.dir].out, duration: 0.3, keep: true }, function() {});
+                // then vanish
+                // $content.addClass("center-content-init");
+                $("#bodyContent").load(state.url + " #bodyContent > *", render_page);
+            });
+        // }
+    });
 });
