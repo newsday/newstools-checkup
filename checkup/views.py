@@ -24,6 +24,8 @@ from checkup.forms import SurveyForm
 
 NO_RESPONSE = "No response"
 
+base_template = settings.TEMPLATE_BASE if hasattr(settings, 'TEMPLATE_BASE') else "checkup/base.html"
+
 #Limit requests to this view to 1,200 per hour from one IP address
 #for both GET and POST. If ratelimited, throw a 403.
 @ratelimit(rate='1200/h', method=None, block=True)
@@ -114,6 +116,7 @@ def surveyform(request, assignment_id):
     context = {
         'form' : form,
         'assignment' : assignment,
+        'base_template': base_template
         }
     return render(request, 'checkup/surveyform.html', context)
 
@@ -122,6 +125,7 @@ def thanks(request, assignment_id):
     
     context = {
         'assignment' : assignment,
+        'base_template': base_template
         }
     return render(request, 'checkup/thanks.html', context)
 
@@ -203,8 +207,6 @@ def overview_feed(request, slug):
     
     data = json.dumps(data, sort_keys=False, indent=4)
     return HttpResponse(data, mimetype='application/json')
-
-base_template = settings.TEMPLATE_BASE if hasattr(settings, 'TEMPLATE_BASE') else "checkup/base.html"
 
 class BaseView(BuildableDetailView):
     def get_context_data(self, *args, **kwargs):
