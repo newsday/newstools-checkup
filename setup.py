@@ -9,7 +9,7 @@ README = open(os.path.join(os.path.dirname(__file__), 'README.md')).read()
 
 setup(
     name = "newstools-checkup",
-    version = "0.8.01",
+    version = "0.9",
     packages=['checkup'],
     include_package_data=True,
     license = "MIT",
