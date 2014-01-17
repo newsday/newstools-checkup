@@ -1,0 +1,24 @@
+{% comment %}
+
+<!-- If you want to enable commenting, create a local version of this file  along the following lines: -->
+
+                <div class="col-xs-12 col-sm-9 pull-right">
+                    <a name="comment-box"></a>
+                    <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">
+                                <img width="35" height="35" src="{% static "checkup/img/comment.svg" %}">
+                                {% if assign.survey.complete %}
+                                    Do you agree?
+                                {% else %}
+                                    What do you think?
+                                {% endif %}
+                            </h3>
+                        </div>
+                        <div class="comments">
+                            {% include "newsday/comments.html" %}
+                        </div>
+                    </div>
+                </div>
+
+{% endcomment %}

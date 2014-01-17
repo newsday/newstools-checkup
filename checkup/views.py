@@ -235,4 +235,6 @@ class AssignmentDetail(BaseView):
             job_desc = ""
         
         context['job_desc'] = job_desc
+        context['has_comments'] = True
+        context['assignment_detail'] = True
         return context
