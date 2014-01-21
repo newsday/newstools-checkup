@@ -12,7 +12,7 @@
         ]{% endblock postload %}
 
 
-{% block body_bottom %}
+{% block body_bottom %}{{block.super}}
     <script type="text/template" id="bin_template">
       <div id="<%= key %>-wrapper" class="bin-wrapper col-sm-4">
         <div class="title-wrapper">

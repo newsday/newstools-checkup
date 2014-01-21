@@ -18,10 +18,8 @@ bin_trigger_height = undefined;
 function get_bin_trigger_height(update) {
   if(_.isUndefined(bin_trigger_height) || !_.isUndefined(update)) {
     bin_trigger_height = $("#header").outerHeight(true) + $('.question-title').outerHeight(true);
-    // console.log("  update bin trigger height @" + bin_trigger_height);
     return bin_trigger_height;
   } else {
-    // console.log("    fetch bin trigger height @" + bin_trigger_height);
     return bin_trigger_height;
   }
 }
@@ -47,23 +45,21 @@ create_waypoints = function() {
           $title.removeClass('stuck');
         }
       }, {
-        offset: function() { /*console.log("  question-title.offset()");*/ return $("#header").outerHeight(true) || 0; }
+        offset: function() { return $("#header").outerHeight(true) || 0; }
       });
    
    /* question titles */
     $(".bin-wrapper").waypoint(function(direction) {
         $title = $(this).find(".title");
         if(direction == "down") {
-          // console.log("STICK: .bin-wrapper .title");
           $title.addClass("stuck");
           update_title($title, $("#header").outerHeight(true) + $('.question-title').outerHeight(true));
         }
         else if(direction == "up") {
-          // console.log("UNSTICK: .bin-wrapper .title");
           $title.removeClass("stuck");
         }
       }, {
-        offset: function() { /*console.log("  #" + $(this).attr('id') + " .title.offset()");*/ return get_bin_trigger_height(); }
+        offset: function() { return get_bin_trigger_height(); }
       }
     );
 };
@@ -74,20 +70,14 @@ create_waypoints = function() {
 // run while resizing is ongoing, unlike much of the rest of custom_sizes).
 
 question_resized = _.debounce(function() {
-    // console.log(" question resize done");
-    // get_bin_trigger_height(true);
     $.waypoints('refresh');
   }, 500);
 
 // Custom-size the page's sticky elements
 custom_sizes = function() {
-    // console.log("RUN: CUSTOM_SIZES");
-    
     $bin_wrapper_titles = $(".bin-wrapper .title");
     
     $clear = $(".question-wrapper,.question-title,.bin-wrapper .title");
-    
-    // console.log(" starting question resize");
     
     $question.css('width', $question_box.width());
     qheight = $question.outerHeight(true);
@@ -136,7 +126,7 @@ $(document).ready(function() {
       json: document.URL.split('#')[0] + "feed.json",
       bin_template: $("#bin_template").html(),
       box_template: $("#box_template").html(),
-      post_update: function() { /*console.log("post_update: CUSTOM_SIZES");*/ custom_sizes(); },
+      post_update: function() { custom_sizes(); },
       bin_holder: "#bin-holder",
       viz: []
     };
@@ -173,7 +163,7 @@ $(document).ready(function() {
       if(_(text_update).isUndefined()) { text_update = function() {}; }
       animating = true;
       scroll_up();
-      $container.checkup().switch_viz(pg, animation, function() { /*console.log("switch_viz(end): CUSTOM_SIZES");*/ custom_sizes(); callback(); animating = false; }, text_update);
+      $container.checkup().switch_viz(pg, animation, function() { custom_sizes(); callback(); animating = false; }, text_update);
     }
     
     pg = 0; max_pg = settings.viz.length;
@@ -234,7 +224,6 @@ $(document).ready(function() {
     
     if(!window.isMobile.any()) {
         $(window).resize(function() {
-          // console.log("... resize");
           custom_sizes();
           scroll_up();
         });
@@ -251,7 +240,7 @@ $(document).ready(function() {
     // $(document).ready(custom_sizes);
     create_waypoints();
     custom_sizes();
-    $(window).load(function() { /*console.log("window(load):");*/ custom_sizes(); });
+    $(window).load(function() { custom_sizes(); });
     
   }); // getJSON(overview_feed.json)
 }); // $(document).ready

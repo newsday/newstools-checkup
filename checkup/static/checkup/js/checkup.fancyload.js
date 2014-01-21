@@ -35,7 +35,6 @@ $(document).ready(function() {
     // // Bind to StateChange Event
     History.Adapter.bind(window,'statechange',function() {
         var state = History.getState();
-        leak = state;
         
         // after a new page is loaded
         function render_page(responseText, textStatus, XMLHttpRequest) {
@@ -63,7 +62,7 @@ $(document).ready(function() {
             $('#header,.alert').localScroll({ 'offset': -48 });
             
             // Site-specific hook
-            page_load();
+            page_load(url, title);
             
             // state.data.dir = reverse[state.data.dir];
             // this doesn't work, but we need something like it.
@@ -72,10 +71,9 @@ $(document).ready(function() {
         // function change_page(url) {
             $("html, body").animate({ scrollTop: 0}, 150, function() {
                 // pull to top of page
-                console.log(state);
                 $content.animo({ animation: animate[state.data.dir].out, duration: 0.3, keep: true }, function() {});
-                // then vanish
-                // $content.addClass("center-content-init");
+                
+                // load new content
                 $("#bodyContent").load(state.url + " #bodyContent > *", render_page);
             });
         // }

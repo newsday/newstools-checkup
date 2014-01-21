@@ -234,7 +234,6 @@
             // animate visualizaiton switch
             $("#bin-holder").animo({ animation: 'fadeOutUp', duration: 0.1, keep: true }, function() {
                 update_viz(false, animate, function() {
-                    console.log("[jquery.checkup] switch_viz[post-out-animation]");
                     $("#bin-holder").animo({ animation: 'fadeInDown', duration: 0.6, keep: true }, function() {
                         $("#bin-holder").animo("cleanse");
                         callback();
