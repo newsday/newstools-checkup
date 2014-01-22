@@ -39,7 +39,7 @@ INSTALLED_APPS += (
 
 
 # Grappelli (fancy admin) settings
-GRAPPELLI_INDEX_DASHBOARD = 'checkups.dashboard.CustomIndexDashboard'
+GRAPPELLI_INDEX_DASHBOARD = 'checkup.dashboard.CustomIndexDashboard'
 GRAPPELLI_ADMIN_TITLE = 'CheckUp'
 
 # Views that django_bakery needs to bake
