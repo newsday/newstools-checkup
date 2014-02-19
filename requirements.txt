@@ -1,5 +1,8 @@
 # CHECKUP
 ##################
+django
+south
+django-grappelli
 django-localflavor
 django-localflavor-us
 django-ratelimit
