@@ -22,28 +22,28 @@ class CustomIndexDashboard(Dashboard):
         site_name = get_admin_site_name(context)
 		
         self.children.append(modules.ModelList(
-            _('First, add a survey and respondents...'),
+            _('CheckUp:  First, add a survey and respondents...'),
             column=1,
             collapsible=False,
             models=('checkup.models.Survey', 'checkup.models.Respondent',),
         ))
 
         self.children.append(modules.ModelList(
-            _('Then, create groups of questions...'),
+            _('CheckUp:  Then, create groups of questions...'),
             column=1,
             collapsible=False,
             models=('checkup.models.QuestionGroup',),
         ))
 		
         self.children.append(modules.ModelList(
-            _('Finally, create assignments that tie everything together...'),
+            _('CheckUp:  Finally, create assignments that tie everything together...'),
             column=1,
             collapsible=False,
             models=('checkup.models.Assignment',),
         ))
 		
         self.children.append(modules.ModelList(
-            _('You can also add political contribution data to respondents...'),
+            _('CheckUp:  You can also add political contribution data to respondents...'),
             column=1,
             collapsible=False,
             models=('checkup.models.ContributionType',
@@ -51,7 +51,7 @@ class CustomIndexDashboard(Dashboard):
         ))
 		
         self.children.append(modules.ModelList(
-            _('Modify other elements individually here...'),
+            _('CheckUp:  Modify other elements individually here...'),
             column=1,
             collapsible=False,
             models=('checkup.models.Question', 'checkup.models.Group', 
@@ -60,8 +60,8 @@ class CustomIndexDashboard(Dashboard):
         ))
 		
         self.children.append(modules.ModelList(
-            _('Administration stuff...'),
-            column=1,
+            _('Administration'),
+            column=3,
             collapsible=False,
             models=('django.contrib.*', 'checkup.models.Reporter',
 					'checkup.models.FormRequest', 'dbtemplates.models.Template'),
