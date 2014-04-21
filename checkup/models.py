@@ -115,9 +115,13 @@ class Question(models.Model):
 	directed_to = models.CharField(max_length=150, blank=True, default="", help_text='A short description of who this question is going to (e.g., "State Lawmakers")')
 	choices = models.ManyToManyField('Choice')
 	visualize = models.BooleanField(default=True)
+	order = models.PositiveSmallIntegerField(default=1)
 	
 	def __unicode__(self):
 		return self.question
+	
+	class Meta:
+		ordering = ('order',)
 
 
 class ChoiceDisplay(models.Model):

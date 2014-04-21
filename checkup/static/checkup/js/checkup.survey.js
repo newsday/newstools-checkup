@@ -132,7 +132,7 @@ $(document).ready(function() {
     };
     
     // create viz for each setting
-    _(d.questions).each(function(q, key, list) {
+    _.chain(d.questions).toArray().sortBy('order').each(function(q, key, list) {
       // ONCE MODELS IN PLACE:
       if(q.visualize) {
         settings.viz.push({

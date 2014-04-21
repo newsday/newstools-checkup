@@ -193,6 +193,7 @@ def overview_feed(request, slug):
         new_q['no_answer'] = new_q['asked'] - new_q['answered']
         new_q['answers'] = {}
         new_q['bins'] = OrderedDict()
+        new_q['order'] = q.order
         
         for a in q.choices.all():
             new_q['answers']['%s' % a.choice] = Answer.objects.filter(assignment__survey=survey, question__question=q, answer=a).count()
