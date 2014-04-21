@@ -20,7 +20,7 @@ $(document).ready(function() {
         
         if(_(["Back to theQuestions", "QUESTIONS"]).contains($btn.find(".control-label").text())) {
             $("html, body").animate({ scrollTop: 0}, 150, function() {
-                $content.animo({ animation: animate[dir].out, duration: 0.3, keep: true }, function() {
+                $content.animo({ animation: animate[dir].out, duration: 0.4, keep: true }, function() {
                     window.location.href = url; // + "#last";
                 });
             });
@@ -32,50 +32,61 @@ $(document).ready(function() {
     
     $(".control").click(make_buttons);
     
+    
+    // after a new page is loaded
+    function render_page(responseText, textStatus, XMLHttpRequest) {
+        var state = History.getState();
+        
+        $content = $(".center-content");
+        
+        // Display $content
+        if(state.data.dir) {
+            $content.animo({ animation: animate[state.data.dir].in, duration: 0.7, keep: true });
+        } else {
+            $content.animo({ animation: animate['backward'].in, duration: 0.7, keep: true });
+        }
+            
+        $content.removeClass("center-content-init");
+        
+        // Re-set button press events
+        $(".control").click(make_buttons);
+        
+        // Re-render Twitter buttons
+        $.ajax({ url: 'http://platform.twitter.com/widgets.js', dataType: 'script', cache:true});
+        
+        // Extract metadata from new page
+        $newpg = $(responseText);
+        title = $newpg.filter("title").text();
+        
+        // Update metadata
+        $("meta").remove();
+        $("head").append($newpg.filter("meta"));
+        document.title = title;
+        
+        $('#header,.alert').localScroll({ 'offset': -48 });
+        
+        // Site-specific hook
+        page_load(url, title);
+        
+        // this doesn't work, but we need something like it.
+        // state.data.dir = reverse[state.data.dir];
+        state.data.ct += 1;
+    }
+    
     // // Bind to StateChange Event
     History.Adapter.bind(window,'statechange',function() {
         var state = History.getState();
         
-        // after a new page is loaded
-        function render_page(responseText, textStatus, XMLHttpRequest) {
-            $content = $(".center-content");
+        $("html, body").animate({ scrollTop: 0}, 150, function() {
+            // pull to top of page
+            if(state.data.dir) {
+                $content.animo({ animation: animate[state.data.dir].out, duration: 0.4, keep: true }, function() {});
+            } else {
+                $content.animo({ animation: animate['backward'].out, duration: 0.4, keep: true }, function() {});
+            }
             
-            // Display $content
-            $content.animo({ animation: animate[state.data.dir].in, duration: 0.6, keep: true });
-            $content.removeClass("center-content-init");
-            
-            // Re-set button press events
-            $(".control").click(make_buttons);
-            
-            // Re-render Twitter buttons
-            $.ajax({ url: 'http://platform.twitter.com/widgets.js', dataType: 'script', cache:true});
-            
-            // Extract metadata from new page
-            $newpg = $(responseText);
-            title = $newpg.filter("title").text();
-            
-            // Update metadata
-            $("meta").remove();
-            $("head").append($newpg.filter("meta"));
-            document.title = title;
-            
-            $('#header,.alert').localScroll({ 'offset': -48 });
-            
-            // Site-specific hook
-            page_load(url, title);
-            
-            // state.data.dir = reverse[state.data.dir];
-            // this doesn't work, but we need something like it.
-        }
-        
-        // function change_page(url) {
-            $("html, body").animate({ scrollTop: 0}, 150, function() {
-                // pull to top of page
-                $content.animo({ animation: animate[state.data.dir].out, duration: 0.3, keep: true }, function() {});
-                
-                // load new content
-                $("#bodyContent").load(state.url + " #bodyContent > *", render_page);
-            });
-        // }
+            // load new content
+            $("#bodyContent").load(state.url + " #bodyContent > *", render_page);
+        });
     });
 });
